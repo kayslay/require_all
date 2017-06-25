@@ -1,0 +1,15 @@
+{
+  "name": "require_all",
+  "version": "1.0.0",
+  "description": "requires all the files in a folder",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": ["require", "require all","folder require"],
+  "author": "Badewa Kayode <badewakayode1@gmail.com>",
+  "license": "MIT"
+}
