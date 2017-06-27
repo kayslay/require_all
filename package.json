@@ -7,7 +7,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": ["require", "require all","folder require"],
   "author": "Badewa Kayode <badewakayode1@gmail.com>",
