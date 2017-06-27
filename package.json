@@ -1,6 +1,6 @@
 {
   "name": "require_all",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "requires all the files in a folder",
   "main": "index.js",
   "directories": {
@@ -9,7 +9,11 @@
   "scripts": {
     "test": "mocha"
   },
-  "keywords": ["require", "require all","folder require"],
+  "keywords": [
+    "require",
+    "require all",
+    "folder require"
+  ],
   "author": "Badewa Kayode <badewakayode1@gmail.com>",
   "license": "MIT"
 }
