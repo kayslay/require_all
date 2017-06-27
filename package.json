@@ -1,13 +1,14 @@
 {
   "name": "require_all",
-  "version": "2.0.0",
+  "version": "1.0.0",
   "description": "requires all the files in a folder",
   "main": "index.js",
   "directories": {
-    "lib": "lib"
+    "lib": "lib",
+    "tests": "test"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "mocha ./tests"
   },
   "keywords": [
     "require",
@@ -15,5 +16,9 @@
     "folder require"
   ],
   "author": "Badewa Kayode <badewakayode1@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2"
+  }
 }
