@@ -12,12 +12,43 @@ To install require_all all you need is the node package manager
 **require_all** can be used synchronously and asynchronously. To start using require_all, require it in you script.
  
  ```javascript
-    const requireAll = require('require_all');
+    const requireAll = require('require_all')(module);  //pass in the module so it can get the dirname 
   
 ```
 
 ### The requireAll function
 This function acts synchronously or asynchronously depending on the parameters passed to it.
+
+require_all acts synchronously if the callback parameter is not passed or the callback === 'sync'.
+
+```javascript
+const RequiredObj = requireAll('path/to/file',option)
+
+```
+If a callback function is passed or the callback string === 'async' require_all acts asynchronously.
+ 
+A Promise is returned when the callback === "async".
+ ```javascript
+    requireAll('path/to/file',option,'async')
+    .then(requiredObj=> {/*fulfilled*/})
+    .catch(err=>{/*error handling*/})
+``` 
+
+Or handle with a callback
+```javascript
+requireAll('path/to/file',option,(err,requiredObj)=>{
+	if(err){
+		/*error handling*/
+	}
+	/*run the code*/
+})
+```
+
+
+```javascript
+const RequiredObj = requireAll('/path/to/file',options,callback)
+```
+
 
 Depending on the way this function is used, the object gotten after the all the requiring is done is; let say it called
 RequiredObj.

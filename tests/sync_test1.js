@@ -2,7 +2,7 @@
  * Created by kayslay on 6/27/17.
  */
 const expect = require('chai').expect;
-let requireAll = require('../');
+let requireAll = require('../')(module);
 describe("Test the sync behaviour", function () {
     describe("folder is a string", function () {
         "use strict";

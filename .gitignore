@@ -9,6 +9,7 @@ yarn-error.log*
 ### ide folder
 /.idea
 /node_module
+/example
 
 # dotenv environment variables file
 .env
