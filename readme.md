@@ -17,26 +17,44 @@ To install require_all all you need is the node package manager
 ```
 
 ### The requireAll function
-This function acts synchronously or asynchronously depending on the parameters passed to it.
+#### Arguments:
+- `path` **{String | Array}**
+- `options` **{Object}** optional
+- `callback` **{Functon | String}** optional
+
+##### Path
+The path to directory or an array of paths to directories to require files from.
+
+##### Options
+The option argument configures certain behaviour of requireAll function. The option is an Object with properties:
+- **depth {Boolean}:** Defaults to false. If true it gets the files of sub-directories in the directory of the path.
+- **filters {RegExp}:** The default value is `/(\.js|\.json)$/`. Requires the files that match the RegExp.
+**Note :** If changed the new RegExp value would replace the default, so if js nad json files want to matched it must 
+be included in the new RegExp value.
+- **exclude {RegExp}** The files to exclude
+- **excludeDir {RegExp}** The directories to exclude
+
+#### Callback
+
+This function acts synchronously or asynchronously depending on the parameters passed or not passed as it `callback` parameter.
 
 require_all acts synchronously if the callback parameter is not passed or the callback === 'sync'.
 
 ```javascript
-const RequiredObj = requireAll('path/to/file',option)
-
+const RequiredObj = requireAll('path/to/file'[,option])
 ```
 If a callback function is passed or the callback string === 'async' require_all acts asynchronously.
  
 A Promise is returned when the callback === "async".
  ```javascript
-    requireAll('path/to/file',option,'async')
+    requireAll('path/to/file'[,option],'async')
     .then(requiredObj=> {/*fulfilled*/})
     .catch(err=>{/*error handling*/})
 ``` 
 
 Or handle with a callback
 ```javascript
-requireAll('path/to/file',option,(err,requiredObj)=>{
+requireAll('path/to/file'[,option],(err,requiredObj)=>{
 	if(err){
 		/*error handling*/
 	}
@@ -44,10 +62,6 @@ requireAll('path/to/file',option,(err,requiredObj)=>{
 })
 ```
 
-
-```javascript
-const RequiredObj = requireAll('/path/to/file',options,callback)
-```
 
 
 Depending on the way this function is used, the object gotten after the all the requiring is done is; let say it called
@@ -66,8 +80,19 @@ RequiredObj is an object that holds all the functions,array, values e.t.c. of th
             ['filename2'] : ['exported param'] 
         }
     }
+    
+    // path/to/file
+    //file would be the folderBaseName
+    //if we have file1.js , file2.js and file3.json
+    
+    //the value of RequireObj = {'file':{
+    //                            file1: [__exported_values__]              
+    //                            file2: [__exported_values__]              
+    //                            file3: [__exported_values__]              
+    //                            }
+   
 ```
-From the structure of the way the RequiredObj would look like, to get the the exports of `filename1.js` in a folder
-`path/to/js/file/`,
+### Please report any issues on the projects issues page [here](https://github.com/kayslay/require_all/issues)
 
-# full documentation coming
+### Badewa Kayode
+[@kayslaycode](https://twitter.com/Kayslaycode) [github](https://github.com/kayslay) [Badewa Kayode](https://web.facebook.com/badewa.kayode)
