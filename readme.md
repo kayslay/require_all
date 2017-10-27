@@ -4,7 +4,7 @@
  **require_all** does not have any dependency apart from the ones used in development ([mocha]() & [chai]()).
  
 ## Installation 
-To install require_all all you need is the node package manager
+To install require_all all run
 
         $ npm install require_all
 
@@ -12,8 +12,7 @@ To install require_all all you need is the node package manager
 **require_all** can be used synchronously and asynchronously. To start using require_all, require it in you script.
  
  ```javascript
-    const requireAll = require('require_all')(module);  //pass in the module so it can get the dirname 
-  
+    const requireAll = require('require_all')(module);  //pass in the module so it can get the directory name of the current file
 ```
 
 ### The requireAll function
@@ -23,7 +22,10 @@ To install require_all all you need is the node package manager
 - `callback` **{Functon | String}** optional
 
 ##### Path
-The path to directory or an array of paths to directories to require files from.
+The path to directory or an array of paths to directories to require files from. If the path passed is a relative path, it would be relative from
+ the current file's directory.
+ 
+Absolute paths are also supported.
 
 ##### Options
 The option argument configures certain behaviour of requireAll function. The option is an Object with properties:
@@ -36,12 +38,14 @@ be included in the new RegExp value.
 
 #### Callback
 
-This function acts synchronously or asynchronously depending on the parameters passed or not passed as it `callback` parameter.
+The require_all acts synchronously or asynchronously depending on the parameters passed or not passed as it `callback` parameter.
 
-require_all acts synchronously if the callback parameter is not passed or the callback === 'sync'.
+require_all acts synchronously if the callback parameter is not passed or the callback === `'sync'`.
 
 ```javascript
 const RequiredObj = requireAll('path/to/file'[,option])
+//OR
+const RequiredObj = requireAll('path/to/file'[,option],'sync')
 ```
 If a callback function is passed or the callback string === 'async' require_all acts asynchronously.
  
@@ -52,7 +56,8 @@ A Promise is returned when the callback === "async".
     .catch(err=>{/*error handling*/})
 ``` 
 
-Or handle with a callback
+Or handle with a callback when the function is passed into the `callback` argument
+
 ```javascript
 requireAll('path/to/file'[,option],(err,requiredObj)=>{
 	if(err){
@@ -92,6 +97,41 @@ RequiredObj is an object that holds all the functions,array, values e.t.c. of th
     //                            }
    
 ```
+
+## Example Usage 
+
+### Using Require_all Synchronously
+
+```javascript
+var requireAll = require("require_all")(module);
+//passing an array of paths
+const obj = requireAll(['../dummy_module/', '../dummy/'],
+	{depth: true, exclude: /((^\.\.)|index.js)/, excludeDir: /^child/});
+//passing a single path
+const obj = requireAll('../dummy_module/',
+	{depth: true, exclude: /((^\.\.)|index.js)/, excludeDir: /^child/});
+
+console.log(obj);
+```
+### Using Require_all Asynchronously
+
+```javascript
+var requireAll = require("require_all")(module);
+//using as a promise
+ requireAll(['../dummy_module/', '../dummy/'],
+	{depth: true, exclude: /((^\.\.)|index.js)/, excludeDir: /^child/},'async')
+	.then(obj=> {console.log(obj)})
+    .catch(err=>{console.error(err)});
+ //using as a callback
+ requireAll(['../dummy_module/', '../dummy/'],
+ 	{depth: true, exclude: /((^\.\.)|index.js)/, excludeDir: /^child/}, (err, obj) => {
+ 		if (err) {
+ 			console.error(err)
+ 		}
+ 		console.log(obj)
+ 	})
+```
+
 ### Please report any issues on the projects issues page [here](https://github.com/kayslay/require_all/issues)
 
 ### Badewa Kayode
